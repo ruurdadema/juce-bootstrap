@@ -72,6 +72,27 @@ if (WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:libcmt")
 endif ()
 
+# Conan
+if (NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
+    message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+    file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/develop/conan.cmake"
+            "${CMAKE_BINARY_DIR}/conan.cmake")
+endif ()
+include(${CMAKE_BINARY_DIR}/conan.cmake)
+
+if (APPLE)
+    set(CONAN_SETTINGS os.version=${MACOS_SDK_VERSION})
+else ()
+    set(CONAN_SETTINGS)
+endif ()
+
+conan_cmake_run(CONANFILE conanfile.py
+        SETTINGS ${CONAN_SETTINGS}
+        BASIC_SETUP
+        CMAKE_TARGETS
+        NO_OUTPUT_DIRS # Don't change output directories (so JUCE will be able to install plugins)
+        BUILD missing)
+
 # JUCE
 include(FetchContent)
 FetchContent_Declare(
@@ -107,28 +128,6 @@ juce_add_plugin(${PLUGIN_NAME}
 add_subdirectory(source/views)
 add_subdirectory(source/plugin)
 add_subdirectory(source/gui)
-
-# Conan
-if (NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-    message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-    file(DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/develop/conan.cmake"
-        "${CMAKE_BINARY_DIR}/conan.cmake")
-endif ()
-include(${CMAKE_BINARY_DIR}/conan.cmake)
-
-if (APPLE)
-    set(CONAN_SETTINGS os.version=${MACOS_SDK_VERSION})
-else ()
-    set(CONAN_SETTINGS)
-endif ()
-
-conan_cmake_run(CONANFILE conanfile.py
-    SETTINGS ${CONAN_SETTINGS}
-    BASIC_SETUP
-    CMAKE_TARGETS
-    BUILD missing)
-
-include_directories("${CONAN_INCLUDE_DIRS}")
 
 set(JUCE_COMMON_TARGET_DEFINITIONS
     DONT_SET_USING_JUCE_NAMESPACE
