@@ -5,17 +5,17 @@
 
 #include "PluginEditor.h"
 
-PluginEditor::PluginEditor(PluginProcessor& owningProcessor) : AudioProcessorEditor(owningProcessor)
+PluginEditor::PluginEditor (PluginProcessor& owningProcessor) : AudioProcessorEditor (owningProcessor)
 {
-    setSize(mMainView.getWidth(), mMainView.getHeight());
-    addAndMakeVisible(mMainView);
+    setSize (mMainView.getWidth(), mMainView.getHeight());
+    addAndMakeVisible (mMainView);
 }
 
 PluginEditor::~PluginEditor() = default;
 
-void PluginEditor::paint(juce::Graphics&) {}
+void PluginEditor::paint (juce::Graphics&) {}
 
 void PluginEditor::resized()
 {
-    mMainView.setBounds(getLocalBounds());
+    mMainView.setBounds (getLocalBounds());
 }

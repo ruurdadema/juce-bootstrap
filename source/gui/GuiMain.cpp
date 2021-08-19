@@ -10,63 +10,50 @@
 class GuiMain : public juce::JUCEApplication
 {
 public:
-    GuiMain() : mMainWindow(new MainWindow(getApplicationName())) {}
+    GuiMain() = default;
 
-    const juce::String getApplicationName() override
+    const juce::String getApplicationName() override { return ProjectInfo::projectName; }
+
+    const juce::String getApplicationVersion() override { return ProjectInfo::versionString; }
+
+    bool moreThanOneInstanceAllowed() override { return true; }
+
+    void initialise (const juce::String&) override
     {
-        return ProjectInfo::projectName;
+        mMainWindow = std::make_unique<MainWindow> (getApplicationName());
+        mMainWindow->setVisible (true);
     }
-
-    const juce::String getApplicationVersion() override
-    {
-        return ProjectInfo::versionString;
-    }
-
-    bool moreThanOneInstanceAllowed() override
-    {
-        return true;
-    }
-
-    void initialise(const juce::String&) override {}
 
     void shutdown() override {}
 
-    void systemRequestedQuit() override
-    {
-        quit();
-    }
+    void systemRequestedQuit() override { quit(); }
 
     class MainWindow : public juce::DocumentWindow
     {
     public:
-        MainWindow(juce::String name) :
-            DocumentWindow(
+        explicit MainWindow (const juce::String& name) :
+            DocumentWindow (
                 name,
-                juce::Desktop::getInstance().getDefaultLookAndFeel().findColour(
+                juce::Desktop::getInstance().getDefaultLookAndFeel().findColour (
                     juce::ResizableWindow::backgroundColourId),
                 DocumentWindow::allButtons)
         {
-            setUsingNativeTitleBar(true);
-            setContentNonOwned(&mMainView, true);
+            setUsingNativeTitleBar (true);
+            setContentNonOwned (&mMainView, true);
 
-            setResizable(true, true);
-            centreWithSize(getWidth(), getHeight());
-
-            setVisible(true);
+            setResizable (true, true);
+            centreWithSize (getWidth(), getHeight());
         }
 
-        void closeButtonPressed() override
-        {
-            JUCEApplication::getInstance()->systemRequestedQuit();
-        }
+        void closeButtonPressed() override { JUCEApplication::getInstance()->systemRequestedQuit(); }
 
     private:
         MainView mMainView;
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainWindow)
     };
 
 private:
     std::unique_ptr<MainWindow> mMainWindow;
 };
 
-START_JUCE_APPLICATION(GuiMain)
+START_JUCE_APPLICATION (GuiMain)

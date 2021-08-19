@@ -11,6 +11,6 @@ class MainView : public juce::Component
 {
 public:
     MainView();
-    void paint(juce::Graphics& g) override;
+    void paint (juce::Graphics& g) override;
     void resized() override;
 };

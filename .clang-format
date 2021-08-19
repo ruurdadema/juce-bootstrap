@@ -1,12 +1,14 @@
+# Generated from CLion C/C++ Code Style settings
 BasedOnStyle: Microsoft
 AccessModifierOffset: -4
 TabWidth: 4
 UseTab: Never
 PointerAlignment: Left
 AllowShortLambdasOnASingleLine: Empty
-AllowShortFunctionsOnASingleLine: Empty
-AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
 SpaceBeforeCpp11BracedList: true
+SpaceBeforeParens: NonEmptyParentheses
 Cpp11BracedListStyle: false
 BreakBeforeBraces: Custom
 BraceWrapping:
@@ -20,7 +22,7 @@ BraceWrapping:
   AfterUnion: true
   BeforeCatch: true
   BeforeElse: true
-  BeforeLambdaBody: true
+  BeforeLambdaBody: false
   IndentBraces: false
   AfterCaseLabel: true
 BreakConstructorInitializers: AfterColon
@@ -34,9 +36,9 @@ AlignAfterOpenBracket: AlwaysBreak
 BinPackArguments: false
 BinPackParameters: false
 FixNamespaceComments: true
-ColumnLimit: 100
-AlignConsecutiveAssignments: false
-AlignConsecutiveDeclarations: false
+ColumnLimit: 120
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None
 ---
 Language: Proto
 UseTab: Never

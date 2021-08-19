@@ -10,20 +10,20 @@ PluginProcessor::PluginProcessor() {}
 
 PluginProcessor::~PluginProcessor() {}
 
-void PluginProcessor::prepareToPlay(double, int) {}
+void PluginProcessor::prepareToPlay (double, int) {}
 
 void PluginProcessor::releaseResources() {}
 
-bool PluginProcessor::isBusesLayoutSupported(const juce::AudioProcessor::BusesLayout& layouts) const
+bool PluginProcessor::isBusesLayoutSupported (const juce::AudioProcessor::BusesLayout& layouts) const
 {
-    return AudioProcessor::isBusesLayoutSupported(layouts);
+    return AudioProcessor::isBusesLayoutSupported (layouts);
 }
 
-void PluginProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) {}
+void PluginProcessor::processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) {}
 
 juce::AudioProcessorEditor* PluginProcessor::createEditor()
 {
-    return new PluginEditor(*this);
+    return new PluginEditor (*this);
 }
 
 bool PluginProcessor::hasEditor() const
@@ -66,18 +66,18 @@ int PluginProcessor::getCurrentProgram()
     return 0;
 }
 
-void PluginProcessor::setCurrentProgram(int) {}
+void PluginProcessor::setCurrentProgram (int) {}
 
-const juce::String PluginProcessor::getProgramName(int)
+const juce::String PluginProcessor::getProgramName (int)
 {
     return mProgramName;
 }
 
-void PluginProcessor::changeProgramName(int, const juce::String&) {}
+void PluginProcessor::changeProgramName (int, const juce::String&) {}
 
-void PluginProcessor::getStateInformation(juce::MemoryBlock&) {}
+void PluginProcessor::getStateInformation (juce::MemoryBlock&) {}
 
-void PluginProcessor::setStateInformation(const void*, int) {}
+void PluginProcessor::setStateInformation (const void*, int) {}
 
 // This creates new instances of the plugin.
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()

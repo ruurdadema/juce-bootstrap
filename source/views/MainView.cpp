@@ -7,13 +7,13 @@
 
 MainView::MainView()
 {
-    setSize(800, 400);
+    setSize (800, 400);
 }
 
-void MainView::paint(juce::Graphics& g)
+void MainView::paint (juce::Graphics& g)
 {
-    g.setColour(juce::Colours::white);
-    g.drawFittedText("Hello world!", getLocalBounds(), juce::Justification::centred, 1);
+    g.setColour (juce::Colours::white);
+    g.drawFittedText ("Hello world!", getLocalBounds(), juce::Justification::centred, 1);
 }
 
 void MainView::resized() {}
